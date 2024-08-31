@@ -20,6 +20,7 @@ export default class Controller {
   #isValid(data) {
     return data.name && data.age && data.email;
   }
+
   #onSumbit({ name, age, email }) {
     if (!this.#isValid({ name, age, email })) {
       this.#view.notify({ msg: "Please fill form fileds.", isError: true });
@@ -27,6 +28,7 @@ export default class Controller {
     }
     this.#view.notify({ msg: `Successful added ${name} account` });
     this.#view.addRow({ name, age, email });
+    this.#view.resetForm();
   }
 
   #init() {

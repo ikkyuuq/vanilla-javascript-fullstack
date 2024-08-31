@@ -57,7 +57,6 @@ export default class View extends ViewBase {
       case false:
         alert(msg);
         break;
-      // Clear form input
       default:
         alert("Something went wrong!");
         break;
