@@ -1,5 +1,5 @@
 {
-  "name": "initial-app-template",
+  "name": "js-vanilla-pure",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "erickwendel",
+  "author": "kittipong",
   "license": "ISC",
   "type": "module",
   "engines": {
@@ -19,3 +19,4 @@
     "browser-sync": "^2.29.3"
   }
 }
+
