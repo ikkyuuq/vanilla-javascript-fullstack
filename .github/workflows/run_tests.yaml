@@ -11,7 +11,7 @@ on:
 
 jobs:
   setup-and-test:
-    runs-on: alpine
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,7 +22,7 @@ jobs:
           node-version: 22
 
       - name: Restore Dependencies
-        uses: npm ci
+        run: npm ci
 
       - name: Run tests
-        uses: npm test
+        run: npm test
