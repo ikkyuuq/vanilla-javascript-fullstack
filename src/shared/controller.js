@@ -23,7 +23,7 @@ export default class Controller {
 
   #onSumbit({ name, age, email }) {
     if (!this.#isValid({ name, age, email })) {
-      this.#view.notify({ msg: "Please fill form fileds.", isError: true });
+      this.#view.notify({ msg: "Please fill form fields.", isError: true });
       return;
     }
     this.#view.notify({ msg: `Successful added ${name} account` });
