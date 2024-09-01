@@ -36,22 +36,18 @@ export default class Controller {
     this.#view.configureFormClear();
     const INITIAL_DATA = [
       {
-        name: "Kittipon Prasompong",
+        name: "Kittipong Prasompong",
         age: 21,
         email: "kittipongprasompong@gmail.com",
       },
       {
-        name: "Kittipon Prasompong",
+        name: "Kittipong Prasompong",
         age: 21,
         email: "the.kittipongpras@gmail.com",
       },
-      { name: "Kittipon Prasompong", age: 21, email: "kittipong.pras@ku.th" },
+      { name: "Kittipong Prasompong", age: 21, email: "kittipong.pras@ku.th" },
     ];
 
-    /**
-     * Renders the initial data using the view's (own implemented of each view on each platform) render method.
-     * @param {Array<{name: string, age: number, email: string}>} INITIAL_DATA
-     */
     this.#view.render(INITIAL_DATA);
   }
 }
