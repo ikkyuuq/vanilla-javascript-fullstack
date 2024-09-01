@@ -6,7 +6,7 @@
   "scripts": {
     "web": "npx browser-sync './' ui/",
     "cli": "node ui/index.js",
-    "test:dev": "node --inspect --watch --test tests/"
+    "test:dev": "node --test --inspect --watch"
   },
   "keywords": [],
   "author": "kittipong",
