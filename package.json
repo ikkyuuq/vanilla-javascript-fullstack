@@ -1,10 +1,17 @@
 {
-  "name": "@ikkyuuq/user-management-app",
+  "name": "@thekittipongpras/user-management-app",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "bin": {
     "user-management-app": "./ui/index.js"
+  },
+  "bugs": {
+    "url": "git@github.com:ikkyuuq/vanilla-javascript-fullstack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ikkyuuq/vanilla-javascript-fullstack.git"
   },
   "scripts": {
     "web": "npx browser-sync './' ui/",
@@ -14,7 +21,7 @@
     "test:dev": "node --test --inspect --watch"
   },
   "keywords": [],
-  "author": "kittipong",
+  "author": "thekittipongpras <the.kittipongpras@gmail.com>",
   "license": "ISC",
   "type": "module",
   "engines": {
