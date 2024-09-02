@@ -1,5 +1,4 @@
 # Fullstack Vanilla JavaScript
-
 ![Build Status](https://github.com/ikkyuuq/vanilla-javascript-fullstack/workflows/Run%20tests/badge.svg)
 
 ## Abstract Factory
