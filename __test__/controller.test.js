@@ -30,16 +30,16 @@ describe("#Controller unit test", () => {
 
     const INITIAL_DATA = [
       {
-        name: "Kittipong Prasompong",
-        age: 21,
-        email: "kittipongprasompong@gmail.com",
+        Name: "Kittipong Prasompong",
+        Age: 21,
+        Email: "kittipongprasompong@gmail.com",
       },
       {
-        name: "Kittipong Prasompong",
-        age: 21,
-        email: "the.kittipongpras@gmail.com",
+        Name: "Kittipong Prasompong",
+        Age: 21,
+        Email: "the.kittipongpras@gmail.com",
       },
-      { name: "Kittipong Prasompong", age: 21, email: "kittipong.pras@ku.th" },
+      { Name: "Kittipong Prasompong", Age: 21, Email: "kittipong.pras@ku.th" },
     ];
 
     const render = view.render.mock.calls.at(0).arguments.at(0);

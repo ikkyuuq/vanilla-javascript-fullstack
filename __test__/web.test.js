@@ -69,9 +69,9 @@ describe("Web app test suite", () => {
     assert.strictEqual(addRow.mock.callCount(), 5);
 
     assert.deepStrictEqual(addRow.mock.calls.at(2).arguments.at(0), {
-      name: "Kittipong Prasompong",
-      age: 21,
-      email: "the.kittipongpras@gmail.com",
+      Name: "Kittipong Prasompong",
+      Age: 21,
+      Email: "the.kittipongpras@gmail.com",
     });
   });
   it("given invalid data, should call alert with message", async (context) => {
@@ -112,9 +112,9 @@ describe("Web app test suite", () => {
     assert.strictEqual(addRow.mock.callCount(), 3);
 
     assert.deepStrictEqual(addRow.mock.calls.at(1).arguments.at(0), {
-      name: "Kittipong Prasompong",
-      age: 21,
-      email: "the.kittipongpras@gmail.com",
+      Name: "Kittipong Prasompong",
+      Age: 21,
+      Email: "the.kittipongpras@gmail.com",
     });
 
     assert.strictEqual(
