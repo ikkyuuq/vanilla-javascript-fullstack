@@ -6,6 +6,8 @@ export default class View extends ViewBase {
   #components;
   #onFormSubmit = () => {};
   #onFormClear = () => {};
+  #data = [];
+  #headers = [];
 
   constructor(layoutBuilder = new LayoutBuilder()) {
     super();
@@ -71,13 +73,32 @@ export default class View extends ViewBase {
     };
   }
 
+  #prepareData(items) {
+    if (!items.length) {
+      return {
+        header: this.#headers,
+        data: [],
+      };
+    }
+    this.#headers = Object.keys(items[0]);
+    return {
+      headers: this.#headers,
+      data: items.map((item) => Object.values(item)),
+    };
+  }
+
   /**
    * Adds a new row of data to the display.
    * This method can be adapted to render data in different ways.
    * @param {FormData} data - The data to add.
    * @returns {void}
    */
-  addRow(data) {}
+  addRow(item) {
+    this.#data.push(item);
+    const items = this.#prepareData(this.#data);
+    this.#components.table.setData(items);
+    this.#components.screen.render();
+  }
 
   // facade is the design pattern to execute many functions
   // and abstract the complexity
@@ -90,6 +111,7 @@ export default class View extends ViewBase {
         onClear: this.#onFormClear.bind(this),
       })
       .setAlertComponent()
+      .setTable({ numberOfColumns: 3 })
       .build();
   }
 
@@ -101,6 +123,7 @@ export default class View extends ViewBase {
    */
   render(items) {
     this.#initializeComponentsFacade();
+    items.forEach((item) => this.addRow(item));
   }
   0;
 }
