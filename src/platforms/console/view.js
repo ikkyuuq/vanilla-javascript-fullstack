@@ -67,8 +67,7 @@ export default class View extends ViewBase {
    */
   configureFormClear(fn) {
     this.#onFormClear = () => {
-      this.reset();
-      return fn();
+      this.#components.form.reset();
     };
   }
 

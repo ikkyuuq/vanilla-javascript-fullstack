@@ -140,6 +140,7 @@ export default class LayoutBuilder {
 
     clearButton.on("press", () => {
       onClear();
+      this.#screen.render();
     });
 
     form.on("submit", (data) => {
