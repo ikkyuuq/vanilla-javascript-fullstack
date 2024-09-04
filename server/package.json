@@ -1,0 +1,16 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --inspect --watch ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "thekittipongpras",
+  "license": "ISC",
+  "description": "",
+  "engine": {
+    "node": "v22.7.0"
+  }
+}
