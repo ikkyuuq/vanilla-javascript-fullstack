@@ -16,7 +16,7 @@ const userRoutes = routes({
 // create thing routes
 const Routes = {
   ...userRoutes,
-  default(request, response) {
+  defaultRoute(request, response) {
     response.writeHead(404, DEFAULT_HEADERS);
     response.write(
       JSON.stringify({
@@ -37,11 +37,20 @@ const handler = async (request, response) => {
   const { pathname } = parse(url, true);
   const key = `${pathname}:${method.toLowerCase()}`;
 
-  const route = Routes[key] ?? Routes.default;
+  const route = Routes[key] ?? Routes.defaultRoute;
 
-  return Promise.resolve(route(request, response)).catch((error) => {
-    console.log("error: ", error);
-  });
+  return Promise.resolve(route(request, response)).catch(
+    handlerError(response),
+  );
+};
+
+const handlerError = (response) => {
+  return (error) => {
+    console.log("Something went wrong!", error.stack);
+    response.writeHead(500, DEFAULT_HEADERS);
+    response.write(JSON.stringify({ error: "Internal Server Error!" }));
+    return response.end();
+  };
 };
 
 export default handler;

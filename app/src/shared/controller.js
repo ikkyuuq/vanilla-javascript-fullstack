@@ -1,19 +1,26 @@
 // Controller.init()
+
 /**
  * @typedef {import('./viewBase.js').default} View
+ * @typedef {import('./service.js').default} Service
  */
 export default class Controller {
   /** @type {View} */
   #view;
-  /** @param {{view: View}} */
-  constructor({ view }) {
+
+  /** @type {Service} */
+  #service;
+
+  /** @param {{view: View, service: Service}} */
+  constructor({ view, service }) {
     this.#view = view;
+    this.#service = service;
   }
 
-  /** @param {{view: View}} deps */
-  static init(deps) {
-    const controller = new Controller(deps);
-    controller.#init();
+  /** @param {{view: View, service: Service}} */
+  static async init(view, service) {
+    const controller = new Controller(view, service);
+    await controller.#init();
     return controller;
   }
 
@@ -31,21 +38,34 @@ export default class Controller {
     this.#view.resetForm();
   }
 
-  #init() {
+  async getUsersFromAPI() {
+    try {
+      const result = await this.#service.getUsers();
+      return result;
+    } catch (err) {
+      this.#view.notify({ msg: "Server is not avialable" });
+      return [];
+    }
+  }
+
+  async #init() {
     this.#view.configureFormSubmit(this.#onSumbit.bind(this));
     this.#view.configureFormClear();
+
+    const data = await this.getUsersFromAPI();
     const INITIAL_DATA = [
       {
-        Name: "Kittipong Prasompong",
-        Age: 21,
-        Email: "kittipongprasompong@gmail.com",
+        name: "Kittipong Prasompong",
+        age: 21,
+        email: "kittipongprasompong@gmail.com",
       },
       {
-        Name: "Kittipong Prasompong",
-        Age: 21,
-        Email: "the.kittipongpras@gmail.com",
+        name: "Kittipong Prasompong",
+        age: 21,
+        email: "the.kittipongpras@gmail.com",
       },
-      { Name: "Kittipong Prasompong", Age: 21, Email: "kittipong.pras@ku.th" },
+      { name: "Kittipong Prasompong", age: 21, email: "kittipong.pras@ku.th" },
+      ...data,
     ];
 
     this.#view.render(INITIAL_DATA);

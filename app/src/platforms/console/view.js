@@ -53,10 +53,10 @@ export default class View extends ViewBase {
   notify({ msg, isError = false }) {
     switch (isError) {
       case true:
-        this.#components.alert.failed.setMessage(`${msg}`);
+        this.#components?.alert.failed.setMessage(`${msg}`);
         break;
       case false:
-        this.#components.alert.success.setMessage(`${msg}`);
+        this.#components?.alert.success.setMessage(`${msg}`);
         break;
     }
   }

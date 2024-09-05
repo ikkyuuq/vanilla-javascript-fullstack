@@ -1,7 +1,8 @@
 import assert from "node:assert";
-import { before, describe, it } from "node:test";
+import { describe, it } from "node:test";
 import View from "../src/platforms/web/view.js";
 import Controller from "../src/shared/controller.js";
+import Service from "../src/shared/service.js";
 
 const getDocument = (mock, inputs) => {
   globalThis.alert = mock.fn((message) => {});
@@ -32,17 +33,19 @@ const getDocument = (mock, inputs) => {
 };
 
 describe("Web app test suite", () => {
-  let _controller;
   it("given valid input, should update the table data", async (context) => {
     const document = getDocument(context.mock, {
       name: "test",
       age: "test",
       email: "test",
     });
+    const API_URL = "http://localhost:3000";
     const view = new View();
+    const service = new Service({ url: API_URL });
     const addRow = context.mock.method(view, view.addRow.name);
-    _controller = Controller.init({
+    await Controller.init({
       view,
+      service,
     });
 
     const [form, btn_form_clear, table_body, name, age, email] =
@@ -59,19 +62,19 @@ describe("Web app test suite", () => {
     const preventDefaultSpy = context.mock.fn();
 
     // This is getting 4 items because of mock data test has been added into
-    assert.strictEqual(addRow.mock.callCount(), 4);
+    assert.strictEqual(addRow.mock.callCount(), 5);
 
     onSubmit({
       preventDefault: preventDefaultSpy,
     });
 
     // This should be increase by 1 after getting submit with valid data
-    assert.strictEqual(addRow.mock.callCount(), 5);
+    assert.strictEqual(addRow.mock.callCount(), 6);
 
     assert.deepStrictEqual(addRow.mock.calls.at(2).arguments.at(0), {
-      Name: "Kittipong Prasompong",
-      Age: 21,
-      Email: "the.kittipongpras@gmail.com",
+      name: "Kittipong Prasompong",
+      age: 21,
+      email: "the.kittipongpras@gmail.com",
     });
   });
   it("given invalid data, should call alert with message", async (context) => {
@@ -80,11 +83,15 @@ describe("Web app test suite", () => {
       age: "",
       email: "",
     });
+    const API_URL = "http://localhost:3000";
     const view = new View();
+    const service = new Service({ url: API_URL });
     const addRow = context.mock.method(view, view.addRow.name);
     const notify = context.mock.method(view, view.notify.name);
-    _controller = Controller.init({
+    const data = await service.getUsers();
+    await Controller.init({
       view,
+      service,
     });
 
     const [form, btn_form_clear, table_body, name, age, email] =
@@ -102,19 +109,19 @@ describe("Web app test suite", () => {
 
     // This should not be increase, because the mock data is invalid
     // so addRow it must not get call
-    assert.strictEqual(addRow.mock.callCount(), 3);
+    assert.strictEqual(addRow.mock.callCount(), 4);
 
     onSubmit({
       preventDefault: preventDefaultSpy,
     });
 
     // and Again, It failed to Submit then it should still have 3 items
-    assert.strictEqual(addRow.mock.callCount(), 3);
+    assert.strictEqual(addRow.mock.callCount(), 4);
 
     assert.deepStrictEqual(addRow.mock.calls.at(1).arguments.at(0), {
-      Name: "Kittipong Prasompong",
-      Age: 21,
-      Email: "the.kittipongpras@gmail.com",
+      name: "Kittipong Prasompong",
+      age: 21,
+      email: "the.kittipongpras@gmail.com",
     });
 
     assert.strictEqual(

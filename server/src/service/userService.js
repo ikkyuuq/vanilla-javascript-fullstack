@@ -4,7 +4,11 @@ export default class UserService {
     this.#userRepository = userRepository;
   }
 
-  find() {
+  async find() {
     return this.#userRepository.find();
+  }
+
+  async create(data) {
+    return this.#userRepository.create(data);
   }
 }
