@@ -2,7 +2,6 @@ import assert from "node:assert";
 import { before, describe, it, mock } from "node:test";
 import ViewBase from "../src/shared/viewBase.js";
 import Controller from "../src/shared/controller.js";
-import Service from "../src/shared/service.js";
 
 const generateView = () => {
   class View extends ViewBase {
@@ -19,14 +18,14 @@ const generateView = () => {
 
 describe("#Controller unit test", () => {
   it("#init", async () => {
-    const API_URL = "http://localhost:3000";
     const view = generateView();
-    const service = new Service({ url: API_URL });
     await Controller.init({
       view,
-      service,
+      service: {
+        getUsers: mock.fn(async () => []),
+        createUser: mock.fn(async () => ({})),
+      },
     });
-    const data = await service.getUsers();
 
     const configureFormSubmit = view.configureFormSubmit.mock.callCount();
     assert.strictEqual(configureFormSubmit, 1);
@@ -45,7 +44,6 @@ describe("#Controller unit test", () => {
         email: "the.kittipongpras@gmail.com",
       },
       { name: "Kittipong Prasompong", age: 21, email: "kittipong.pras@ku.th" },
-      ...data,
     ];
 
     const render = view.render.mock.calls.at(0).arguments.at(0);

@@ -39,13 +39,14 @@ describe("Web app test suite", () => {
       age: "test",
       email: "test",
     });
-    const API_URL = "http://localhost:3000";
     const view = new View();
-    const service = new Service({ url: API_URL });
     const addRow = context.mock.method(view, view.addRow.name);
     await Controller.init({
       view,
-      service,
+      service: {
+        getUsers: context.mock.fn(async () => []),
+        createUser: context.mock.fn(async () => ({})),
+      },
     });
 
     const [form, btn_form_clear, table_body, name, age, email] =
@@ -62,14 +63,14 @@ describe("Web app test suite", () => {
     const preventDefaultSpy = context.mock.fn();
 
     // This is getting 4 items because of mock data test has been added into
-    assert.strictEqual(addRow.mock.callCount(), 5);
+    assert.strictEqual(addRow.mock.callCount(), 4);
 
     onSubmit({
       preventDefault: preventDefaultSpy,
     });
 
     // This should be increase by 1 after getting submit with valid data
-    assert.strictEqual(addRow.mock.callCount(), 6);
+    assert.strictEqual(addRow.mock.callCount(), 5);
 
     assert.deepStrictEqual(addRow.mock.calls.at(2).arguments.at(0), {
       name: "Kittipong Prasompong",
@@ -83,15 +84,15 @@ describe("Web app test suite", () => {
       age: "",
       email: "",
     });
-    const API_URL = "http://localhost:3000";
     const view = new View();
-    const service = new Service({ url: API_URL });
     const addRow = context.mock.method(view, view.addRow.name);
     const notify = context.mock.method(view, view.notify.name);
-    const data = await service.getUsers();
     await Controller.init({
       view,
-      service,
+      service: {
+        getUsers: context.mock.fn(() => []),
+        createUser: context.mock.fn(() => ({})),
+      },
     });
 
     const [form, btn_form_clear, table_body, name, age, email] =
@@ -109,14 +110,14 @@ describe("Web app test suite", () => {
 
     // This should not be increase, because the mock data is invalid
     // so addRow it must not get call
-    assert.strictEqual(addRow.mock.callCount(), 4);
+    assert.strictEqual(addRow.mock.callCount(), 3);
 
     onSubmit({
       preventDefault: preventDefaultSpy,
     });
 
     // and Again, It failed to Submit then it should still have 3 items
-    assert.strictEqual(addRow.mock.callCount(), 4);
+    assert.strictEqual(addRow.mock.callCount(), 3);
 
     assert.deepStrictEqual(addRow.mock.calls.at(1).arguments.at(0), {
       name: "Kittipong Prasompong",
