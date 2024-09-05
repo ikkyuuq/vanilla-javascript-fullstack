@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node --inspect --watch ./src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"It's going to implement later\""
   },
   "author": "thekittipongpras",
   "license": "ISC",
