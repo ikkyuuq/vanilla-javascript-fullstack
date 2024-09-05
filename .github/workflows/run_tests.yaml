@@ -21,8 +21,18 @@ jobs:
         with:
           node-version: 22
 
-      - name: Restore Dependencies
+      - name: Restore Dependencies for app
         run: npm ci
+        working-directory: "./app"
 
-      - name: Run tests
+      - name: Run tests for app
         run: npm test
+        working-directory: "./app"
+
+      - name: Restore Dependencies for server
+        run: npm ci
+        working-directory: "./server"
+
+      - name: Run tests for server
+        run: npm test
+        working-directory: "./server"
